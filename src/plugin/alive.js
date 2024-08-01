@@ -1,7 +1,7 @@
 import pkg, { prepareWAMessageMedia } from '@whiskeysockets/baileys';
 const { generateWAMessageFromContent, proto } = pkg;
 
-const alive = async (m, Matrix) => {
+const alive = async (Void, m, Matrix) => {
   const uptimeSeconds = process.uptime();
   const days = Math.floor(uptimeSeconds / (24 * 3600));
   const hours = Math.floor((uptimeSeconds % (24 * 3600)) / 3600);
@@ -10,16 +10,22 @@ const alive = async (m, Matrix) => {
   
   const prefix = /^[\\/!#.]/gi.test(m.body) ? m.body.match(/^[\\/!#.]/gi)[0] : '/';
   const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).toLowerCase() : '';
+  await Void.sendMessage(citel.chat, { audio: {url : 'https://github.com/Sithuwa/SITHUWA-MD/raw/main/media/Alive.mp3',}, mimetype: 'audio/mpeg', ptt: true }, { quoted: citel, });
     if (['alive', 'uptime', 'runtime'].includes(cmd)) {
 
-  const uptimeMessage = `*🤖 ETHIX-MD Status Overview*
-_________________________________________
+  const uptimeMessage = `
+*Hello, ${citel.pushName},*
+_This is  ${tlang().title}._
+${alivemessage}
 
-*📆 ${days} Day*
-*🕰️ ${hours} Hour*
-*⏳ ${minutes} Minute*
-*⏲️ ${seconds} Second*
-_________________________________________
+*Version:-* _1.9.2_
+*Uptime:-* _${runtime(process.uptime())}_
+*Owner:-* _VISHWA MIHIRANGA_
+*Branch:-* _${Config.BRANCH}_
+
+_Type ${prefix}menu for my command list._
+
+_ᴘᴏᴡᴇʀᴅ ʙʏ ᴠɪꜱʜᴡᴀ-ᴍᴅ_
 `;
 
   const buttons = [
@@ -33,8 +39,8 @@ _________________________________________
         {
           "name": "quick_reply",
           "buttonParamsJson": JSON.stringify({
-            display_text: "PING",
-            id: `.ping`
+            display_text: "Follow us",
+            id: `https://whatsapp.com/channel/0029VaSaZd5CBtxGawmSph1k`
           })
         }
         ];
@@ -51,7 +57,7 @@ _________________________________________
             text: uptimeMessage
           }),
           footer: proto.Message.InteractiveMessage.Footer.create({
-            text: "© Powered By 𝞢𝙏𝞖𝞘𝞦-𝞛𝘿"
+            text: "©ᴘᴏᴡᴇʀᴅ ʙʏ ᴠɪꜱʜᴡᴀ-ᴍᴅ"
           }),
           header: proto.Message.InteractiveMessage.Header.create({
             title: "",
@@ -68,7 +74,7 @@ _________________________________________
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Ethix-MD",
+                  newsletterName: "VISHWA-MD",
                   serverMessageId: 143
                 }
               }
