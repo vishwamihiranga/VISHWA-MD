@@ -4,38 +4,25 @@ dotenv.config();
 import {
     makeWASocket,
     Browsers,
-    jidDecode,
-    makeInMemoryStore,
-    makeCacheableSignalKeyStore,
-    fetchLatestBaileysVersion,
     DisconnectReason,
     useMultiFileAuthState,
-    getAggregateVotesInPollMessage
+    fetchLatestBaileysVersion,
+    makeInMemoryStore
 } from '@whiskeysockets/baileys';
 import { Handler, Callupdate, GroupUpdate } from './event/index.js';
-import { Boom } from '@hapi/boom';
-import express from 'express';
 import pino from 'pino';
 import fs from 'fs';
-import NodeCache from 'node-cache';
 import path from 'path';
 import chalk from 'chalk';
-import { writeFile } from 'fs/promises';
-import moment from 'moment-timezone';
 import axios from 'axios';
-import fetch from 'node-fetch';
-import * as os from 'os';
+import NodeCache from 'node-cache';
+import { writeFile } from 'fs/promises';
 import config from '../config.cjs';
 import pkg from '../lib/autoreact.cjs';
 const { emojis, doReact } = pkg;
 
 const sessionName = "session";
 const app = express();
-const orange = chalk.bold.hex("#FFA500");
-const lime = chalk.bold.hex("#32CD32");
-let useQR;
-let isSessionPutted;
-let initialConnection = true;
 const PORT = process.env.PORT || 3000;
 
 const MAIN_LOGGER = pino({
@@ -45,17 +32,12 @@ const logger = MAIN_LOGGER.child({});
 logger.level = "trace";
 
 const msgRetryCounterCache = new NodeCache();
-
 const store = makeInMemoryStore({
-    logger: pino().child({
-        level: 'silent',
-        stream: 'store'
-    })
+    logger: pino().child({ level: 'silent' })
 });
 
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
-
 const sessionDir = path.join(__dirname, 'session');
 const credsPath = path.join(sessionDir, 'creds.json');
 
@@ -82,7 +64,7 @@ async function downloadSessionData() {
 }
 
 if (!fs.existsSync(credsPath)) {
-    downloadSessionData();
+    await downloadSessionData();
 }
 
 async function start() {
@@ -90,10 +72,10 @@ async function start() {
         const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
         const { version, isLatest } = await fetchLatestBaileysVersion();
         console.log(`🤖 Vishwa-MD using WA v${version.join('.')}, isLatest: ${isLatest}`);
-        
+
         const Matrix = makeWASocket({
             version,
-            logger: pino({ level: 'silent' }),
+            logger: pino({ level: 'error' }), // Reduced log level
             printQRInTerminal: true,
             browser: ["Vishwa-MD", "safari", "3.3"],
             auth: state,
@@ -106,26 +88,43 @@ async function start() {
             }
         });
 
-        Matrix.ev.on('connection.update', (update) => {
+        Matrix.ev.on('connection.update', async (update) => {
             const { connection, lastDisconnect } = update;
             if (connection === 'close') {
                 if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
-                    start();
+                    start(); // Reconnect
                 }
             } else if (connection === 'open') {
-                if (initialConnection) {
-                    console.log(chalk.green("Conneted ✅"));
-                    Matrix.sendMessage(Matrix.user.id, { text: `Conneted ✅` });
-                    initialConnection = false;
-                } else {
-                    console.log(chalk.blue("♻️ Connection reestablished after restart."));
-                }
+                console.log(chalk.green("Connected ✅"));
+                Matrix.sendMessage(Matrix.user.id, { text: `Connected ✅` });
             }
         });
 
         Matrix.ev.on('creds.update', saveCreds);
 
-        Matrix.ev.on("messages.upsert", async chatUpdate => await Handler(chatUpdate, Matrix, logger));
+        Matrix.ev.on('messages.upsert', async (chatUpdate) => {
+            try {
+                const messages = chatUpdate.messages;
+                if (!messages.length) return;
+
+                // Batch processing
+                const promises = messages.map(async (mek) => {
+                    if (!mek.key.fromMe && config.AUTO_REACT) {
+                        if (mek.message) {
+                            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                            await doReact(randomEmoji, mek, Matrix);
+                        }
+                    }
+                });
+
+                // Wait for all promises to resolve
+                await Promise.all(promises);
+                await Handler(chatUpdate, Matrix, logger);
+            } catch (err) {
+                console.error('Error processing messages:', err);
+            }
+        });
+
         Matrix.ev.on("call", async (json) => await Callupdate(json, Matrix));
         Matrix.ev.on("group-participants.update", async (messag) => await GroupUpdate(Matrix, messag));
 
@@ -135,20 +134,6 @@ async function start() {
             Matrix.public = false;
         }
 
-        Matrix.ev.on('messages.upsert', async (chatUpdate) => {
-            try {
-                const mek = chatUpdate.messages[0];
-                if (!mek.key.fromMe && config.AUTO_REACT) {
-                    console.log(mek);
-                    if (mek.message) {
-                        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-                        await doReact(randomEmoji, mek, Matrix);
-                    }
-                }
-            } catch (err) {
-                console.error('Error during auto reaction:', err);
-            }
-        });
     } catch (error) {
         console.error('Critical Error:', error);
         process.exit(1);
