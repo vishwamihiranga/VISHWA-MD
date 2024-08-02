@@ -5,9 +5,9 @@ import config from '../../config.cjs';
 import { smsg } from '../../lib/myfunc.cjs';
 import { handleAntilink } from './antilink.js';
 
-
 const userCommandCounts = new Map();
 
+// Derive __filename and __dirname for ES modules
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 
@@ -45,7 +45,6 @@ const Handler = async (chatUpdate, sock, logger, store) => {
         const isBotAdmins = m.isGroup ? groupAdmins.includes(botId) : false;
         const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false;
 
-
         const PREFIX = /^[\\/!#.]/;
         const isCOMMAND = (body) => PREFIX.test(body);
         const prefixMatch = isCOMMAND(m.body) ? m.body.match(PREFIX) : null;
@@ -73,16 +72,18 @@ const Handler = async (chatUpdate, sock, logger, store) => {
             }
         }
 
-await handleAntilink(m, sock, logger, isBotAdmins, isAdmins, isCreator); 
+        await handleAntilink(m, sock, logger, isBotAdmins, isAdmins, isCreator); 
 
         const { isGroup, type, sender, from, body } = m;
         console.log(m);
 
-        const pluginFiles = await fs.readdir(path.join(__dirname, '..', 'plugin'));
+        // Load plugins dynamically
+        const pluginDir = path.join(__dirname, '..', 'plugin');
+        const pluginFiles = await fs.readdir(pluginDir);
 
         for (const file of pluginFiles) {
             if (file.endsWith('.js')) {
-                const pluginModule = await import(path.join(__dirname, '..', 'plugin', file));
+                const pluginModule = await import(path.join(pluginDir, file));
                 const loadPlugins = pluginModule.default;
                 await loadPlugins(m, sock);
             }
