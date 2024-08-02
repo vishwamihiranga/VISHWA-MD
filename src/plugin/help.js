@@ -91,7 +91,7 @@ let mode = ethix.public ? 'public' : 'private';
           interactiveMessage: proto.Message.InteractiveMessage.create({
             body: proto.Message.InteractiveMessage.Body.create({
               text: `╭─────────────━┈⊷
-│🤖 ʙᴏᴛ ɴᴀᴍᴇ: *VISHWA-MD*
+│🤖 ʙᴏᴛ ɴᴀᴍᴇ: *ᴠɪꜱʜᴡᴀ-ᴍᴅ*
 │📍 ᴠᴇʀꜱɪᴏɴ: 2.0.3
 │👨‍💻 ᴏᴡɴᴇʀ : *VISHWA MIHIRANGA*      
 │👤 ɴᴜᴍʙᴇʀ: 94702481115
@@ -101,7 +101,7 @@ let mode = ethix.public ? 'public' : 'private';
 ╰─────────────━┈⊷ `
             }),
             footer: proto.Message.InteractiveMessage.Footer.create({
-              text: "© Powered By Ethix-MD"
+              text: "© ᴘᴏᴡᴇʀᴅ ʙʏ ᴠɪꜱʜᴡᴀ-ᴍᴅ"
             }),
             header: proto.Message.InteractiveMessage.Header.create({
                 ...(await prepareWAMessageMedia({ image : fs.readFileSync('./src/ethix.jpg')}, { upload: Matrix.waUploadToServer})), 
@@ -118,66 +118,66 @@ let mode = ethix.public ? 'public' : 'private';
                  "sections":
                    [{
                     "title":"🎈 ᴀʟʟ ᴍᴇɴᴜ*",
-                    "highlight_label":"🎈 ᴀʟʟ ᴍᴇɴᴜ",
+                    "highlight_label":"🎈ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅꜱ",
                     "rows":[
                       {
                        "header":"",
                        "title":"🎈 ᴀʟʟ ᴍᴇɴᴜ",
-                       "description":"🎈 ᴀʟʟ ᴍᴇɴᴜ",
+                       "description":"🎈 ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅꜱ",
                        "id":"View All Menu"
                       },
                       {
                         "header":"",
                         "title":"⬇️ ᴅᴏᴡɴʟᴀᴏᴅᴇʀ ᴍᴇɴᴜ",
-                        "description":"⬇️ ᴅᴏᴡɴʟᴀᴏᴅᴇʀ ᴍᴇɴᴜ",
+                        "description":"⬇️ ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ᴅᴏᴡɴʟᴏᴀᴅ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Downloader Menu"
                       },
                       {
                         "header":"",
                         "title":"👨‍👨‍👧‍👧ɢʀᴏᴜᴘ ᴍᴇɴᴜ",
-                        "description":"👨‍👨‍👧‍👧ɢʀᴏᴜᴘ ᴍᴇɴᴜ",
+                        "description":"👨‍👨‍👧‍👧ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ɢʀᴏᴜᴘ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Group Menu"
                       },
                       {
                         "header":"",
                         "title":"👨‍🔧 ᴛᴏᴏʟ ᴍᴇɴᴜ",
-                        "description":"🛠 ᴛᴏᴏʟ ᴍᴇɴᴜ",
+                        "description":"🛠 ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ᴛᴏᴏʟ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Tool Menu"
                       },
                       {
                         "header":"",
                         "title":"🗿 ᴍᴀɪɴ ᴍᴇɴᴜ",
-                        "description":"🗿 ᴍᴀɪɴ ᴍᴇɴᴜ",
+                        "description":"🗿 ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ᴍᴀɪɴ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Main Menu"
                       },
                      {
                         "header":"",
                         "title":"👨‍💻 ᴏᴡɴᴇʀ ᴍᴇɴᴜ",
-                        "description":"👨‍💻 ᴏᴡɴᴇʀ ᴍᴇɴᴜ",
+                        "description":"👨‍💻 ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ᴏᴡɴᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Owner Menu"
                       },
                       {
                         "header":"",
                         "title":"✨ ᴀɪ ᴍᴇɴᴜ",
-                        "description":"✨ ᴀɪ ᴍᴇɴᴜ",
+                        "description":"✨ ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ᴀ.ɪ. ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Ai Menu"
                       },
                       {
                         "header":"",
                         "title":"🔍sᴇᴀʀᴄʜ ᴍᴇɴᴜ🔎",
-                        "description":"🔍sᴇᴀʀᴄʜ ᴍᴇɴᴜ🔎",
+                        "description":"🔍ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ꜱᴇᴀʀᴄʜ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Search Menu"
                       },
                       {
                         "header":"",
                         "title":"🧚‍♂️ sᴛᴀʟᴋ ᴍᴇɴᴜ",
-                        "description":"🧚‍♂️ sᴛᴀʟᴋ ᴍᴇɴᴜ",
+                        "description":"🧚‍♂️ ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ꜱᴛᴀʟᴋ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Stalk Menu"
                       },
                       {
                         "header":"",
-                        "title":"🥏 𝚌𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛 𝚖𝚎𝚗𝚞",
-                        "description":"🥏 𝚌𝚘𝚗𝚟𝚎𝚛𝚝𝚎𝚛 𝚖𝚎𝚗𝚞",
+                        "title":"🥏 ᴄᴏɴᴠᴇʀᴛᴇʀ ᴍᴇɴᴜ",
+                        "description":"🥏 ʏᴏᴜ ᴄᴀɴ ꜱᴇᴇɴ ᴀʟʟ ᴄᴏɴᴠᴇʀᴛᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ",
                         "id":"Converter Menu"
                       }
                     ]}
@@ -191,7 +191,7 @@ let mode = ethix.public ? 'public' : 'private';
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Ethix-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -208,7 +208,7 @@ let mode = ethix.public ? 'public' : 'private';
         const mode = process.env.MODE;
         const str = `hey ${m.pushName} ${pushwish}
 ╭─────────────━┈⊷
-│🤖 ʙᴏᴛ ɴᴀᴍᴇ: *VISHWA-MD*
+│🤖 ʙᴏᴛ ɴᴀᴍᴇ: *ᴠɪꜱʜᴡᴀ-ᴍᴅ*
 │📍 ᴠᴇʀꜱɪᴏɴ: 2.0.3
 │👨‍💻 ᴏᴡɴᴇʀ : *VISHWA MIHIRANGA*      
 │👤 ɴᴜᴍʙᴇʀ: 94702481115
@@ -324,8 +324,8 @@ let mode = ethix.public ? 'public' : 'private';
             },
             message: {
                 contactMessage: {
-                    displayName: `Vishwa-Md`,
-                    vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'Vishwa-MD'\nitem1.TEL;waid=${
+                    displayName: `ᴠɪꜱʜᴡᴀ-ᴍᴅ`,
+                    vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'ᴠɪꜱʜᴡᴀ-ᴍᴅ'\nitem1.TEL;waid=${
                         m.sender.split("@")[0]
                     }:${
                         m.sender.split("@")[0]
@@ -342,7 +342,7 @@ let mode = ethix.public ? 'public' : 'private';
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -381,7 +381,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -447,7 +447,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -486,7 +486,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -522,7 +522,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -550,7 +550,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -581,7 +581,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -613,7 +613,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
@@ -646,7 +646,7 @@ await Matrix.sendMessage(m.from, {
                   isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                   newsletterJid: '120363249960769123@newsletter',
-                  newsletterName: "Vishwa-MD",
+                  newsletterName: "ᴠɪꜱʜᴡᴀ-ᴍᴅ",
                   serverMessageId: 143
                 }
               }
